@@ -1,5 +1,3 @@
-/* eslint-disable no-console, no-console*/
-/* eslint-disable no-alert, no-console*/
 'use strict';
 
 var CUSTOMER_COLLECTION_SIZE = 25;
