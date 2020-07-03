@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /*  eslint-disable no-invalid-this */
 'use strict';
 
@@ -588,12 +589,14 @@ function setEffectSlider() {
     // TODO Для эффектов показываем слайдер
     effectSlider.classList.remove('hidden');
     // TODO сбрасывать масштабирование при смене эффекта?
+    effectSliderPin.addEventListener('mousedown', sliderPinMousedownHandler);
 
   } else {
     // TODO для нулевого эффекта
     effectSlider.classList.add('hidden');
     setImgScale('reset');
     imgPreview.setAttribute('data-filter', EFFECT_TYPE_0_VALUE);
+    effectSliderPin.removeEventListener('mousedown', sliderPinMousedownHandler);
     return;
   }
 
@@ -683,6 +686,32 @@ function setLevelLinePinPosition(stepNumbers) {
 
   // TODO установим отображение глубины эффекта в виде закрашенной линии от позиции 0 до текущей позиции pin
   effectSliderLineDepth.setAttribute('style', 'width: ' + pinPercentPositionString + '; ');
+}
+
+// ======================================== // TODO drag & drop
+
+function sliderPinMousedownHandler(evt) {
+  evt.preventDefault();
+
+  document.addEventListener('mousemove', mouseMoveHandler);
+  document.addEventListener('mouseup', mouseUpHandler);
+
+  function mouseMoveHandler(e) {
+    var currentPixelPinPosition = e.clientX;
+
+    if (currentPixelPinPosition <= sliderPixelStartPoint) {
+      currentPixelPinPosition = sliderPixelStartPoint;
+    } else if (currentPixelPinPosition >= sliderPixelEndPoint) {
+      currentPixelPinPosition = sliderPixelEndPoint;
+    }
+
+    setEffectDepth(currentPixelPinPosition - sliderPixelStartPoint);
+  }
+
+  function mouseUpHandler() {
+    document.removeEventListener('mouseup', mouseUpHandler);
+    document.removeEventListener('mousemove', mouseMoveHandler);
+  }
 }
 
 // ======================================== // TODO Валидация полей формы
@@ -906,6 +935,7 @@ function previewEditorCloseHandler(evt) {
     // TODO убираем обработчики событий
     document.removeEventListener('keydown', previewEditorCloseHandler);
     previewEditorCancelBtn.removeEventListener('click', previewEditorCloseHandler);
+
     effectsPointerBlock.removeEventListener('click', imgEffectClickHandler);
 
     effectSliderLine.removeEventListener('click', effectSliderLineClickHandler);
@@ -926,6 +956,8 @@ function previewEditorCloseHandler(evt) {
 
     hashTagInput.removeEventListener('change', hashTagChangeHandler);
     textAreaField.removeEventListener('input', textAreaChangeHandler);
+
+    effectSliderPin.removeEventListener('mousedown', sliderPinMousedownHandler);
 
     hashTagAlarmOff();
     textAreaAlarmOff();
