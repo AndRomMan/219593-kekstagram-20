@@ -1,7 +1,5 @@
 'use strict';
 
-// effect_parameters.js
-
 (function () {
   var effects = [
     {

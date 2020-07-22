@@ -1,7 +1,5 @@
 'use strict';
 
-// preview_form.js
-
 (function () {
   var MAX_COMMENT_LENGTH = 140;
   var MAX_HASHTAG_NUMBER = 5;
@@ -9,45 +7,29 @@
   var MIN_HASHTAG_LENGTH = 2;
 
   var textAreaField = window.preview.textAreaField;
-
   var hashTagInput = window.preview.hashTagInput;
   var submitBtn = window.preview.submitBtn;
   var hashTagErrorMessageField = window.preview.hashTagErrorMessageField;
   var textAreaErrorMessage = window.preview.textAreaErrorMessage;
-
-  submitBtn.addEventListener('click', submitBtnClickHandler);
-
-  // Индикаторы валидности полей формы
   var hashTagInputValidityCheck = true;
   var textAreaFieldCheck = true;
 
+  submitBtn.addEventListener('click', submitBtnClickHandler);
+
   function submitBtnClickHandler(evt) {
     evt.preventDefault();
-    var outputObject = {};
-    //  проверка валидации полей формы
     var validityCheck = hashTagInputValidityCheck && textAreaFieldCheck;
-
     if (validityCheck !== true) {
       return;
     }
-    getFormOutputObject(outputObject);
-  }
 
-  //  функция формирования объекта для отправки на сервер
-  function getFormOutputObject(outputObject) {
-  //  собираем поля value для формирования посылки на сервер
-    var imgPreview = window.preview.previewEditor.querySelector('.img-upload__preview img');
-    outputObject.imageSrc = imgPreview.getAttribute('src');
-    outputObject.imgStyle = imgPreview.getAttribute('style');
-    outputObject.hashTag = trimHashTagValue(hashTagInput.value);
-    outputObject.comment = textAreaField.value;
+    var outputObject = new FormData(window.preview.imgUploadForm);
+    window.previewXHR.sendPreviewData(outputObject);
   }
 
   function hashTagChangeHandler(evt) {
     evt.preventDefault();
-
     var hashTagValue = hashTagInput.value;
-    //  если поле input пустое - выключить сообщение об ошибке и установить признак валидации true
     if (hashTagValue === '') {
       hashTagInputValidityCheck = true;
       hashTagAlarmOff();
@@ -58,15 +40,12 @@
     hashTagInputValidityCheck = hashTagArrayValidating(hashTags);
   }
 
-  //  функция формирует массив из hash-tag строки
   function trimHashTagValue(inputString) {
-  //  предварительно удаляем двойные пробелы и пробелы в начале и конце строки
     var spaceRegExp = /\s+/g;
     inputString = inputString.replace(spaceRegExp, ' ').trim();
     return inputString.split(' ');
   }
 
-  //  функция вызывает модули валидации поля hash-tag по различным признакам и сводит ошибки для вывода сообщений
   function hashTagArrayValidating(inputArray) {
     var hashTagErrorMessages = [];
     var sizeErrorsNumber = hashTagSizeValidating(inputArray, hashTagErrorMessages);
@@ -86,7 +65,6 @@
     }
   }
 
-  //  включает сообщение об ошибке в поле hash-tag
   function hashTagAlarmOn(errorMessages) {
     hashTagInput.classList.add('error-input');
     hashTagErrorMessageField.classList.remove('visually-hidden');
@@ -96,7 +74,6 @@
     });
   }
 
-  //  ВЫключает сообщение об ошибке в поле hash-tag
   function hashTagAlarmOff() {
     hashTagInput.classList.remove('error-input');
     hashTagErrorMessageField.classList.add('visually-hidden');
@@ -167,7 +144,6 @@
     return patternErrorCounter;
   }
 
-  //  валидация поля комментариев
   function textAreaChangeHandler(evt) {
     evt.preventDefault();
     var textAreaValue = textAreaField.value;
@@ -188,25 +164,21 @@
     }
   }
 
-  //  включает предупреждение о приближении к разрешенному пределу длины коммента
   function textAreaWarningOn(counter, maxNum) {
     textAreaErrorMessage.classList.remove('visually-hidden');
     textAreaField.classList.add('error-warning');
     textAreaErrorMessage.textContent = 'Вами уже напечатано символов ' + counter + '. Всего можно будет ввести ' + maxNum + '.';
   }
 
-  //  ВЫключает предупреждение о приближении к разрешенному пределу длины коммента
   function textAreaWarningOff() {
     textAreaField.classList.remove('error-warning');
   }
 
-  //  включает сообщение об ошибке в поле комментариев
   function textAreaAlarmOn(counter, maxNum) {
     textAreaField.classList.add('error-input');
     textAreaErrorMessage.textContent = 'Количество введенных символов превышает максимум на ' + (counter - maxNum) + ' !';
   }
 
-  //  ВЫключает сообщение об ошибке в поле комментариев
   function textAreaAlarmOff() {
     textAreaErrorMessage.classList.add('visually-hidden');
     textAreaField.classList.remove('error-input');

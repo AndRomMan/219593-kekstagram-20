@@ -1,29 +1,24 @@
 'use strict';
 
-// preview_effect.js
-
 (function () {
-  // класс для обозначения фокуса на слайдере в момент перехода в режим управления глубиной эффекта стрелками
   var KEY_MODE_SLIDER_CLASS = 'slider-key-mode';
   var effectSlider = window.preview.effectSlider;
-  // параметры слайдера и фильтра
   var effectSliderVisibility;
-  // переменная хранит ссылку на текущий выбранный эффект (кнопку)
   var checkedEffectType;
 
-  // функция установки эффекта
   function imgEffectClickHandler(evt) {
     checkedEffectType = evt.target;
+    var effectTypeNum;
+
     var checkEffectValue = checkedEffectType.getAttribute('value');
-    //  При событии click происходит 2 события: на span и на input
     if (checkedEffectType.getAttribute('type') !== 'radio') {
       return;
     }
-    //  Определение параметров фильтра изображения
+
     switch (checkEffectValue) {
       case (window.effectParameters.effects[0].value):
         effectSliderVisibility = false;
-        var effectTypeNum = 0;
+        effectTypeNum = 0;
         break;
       case (window.effectParameters.effects[1].value):
         effectSliderVisibility = true;
@@ -50,7 +45,6 @@
     window.effectSlider.setEffectSlider(effectSliderVisibility, effectTypeNum);
   }
 
-  //  обработчик клавиш enter и space переводит в режим управления глубиной эффекта стрелками
   function startKeyModeHandler(evt) {
     if ((evt.code === 'Enter') || (evt.code === 'Space')) {
       evt.preventDefault();
@@ -69,7 +63,6 @@
     }
   }
 
-  //  функция перехватыват нажатия ArrowLeft ArrowRight и меняет глубину эффекта
   function arrowKeyHandler(evt) {
     evt.preventDefault();
     var step = 0;
@@ -89,7 +82,6 @@
     }
   }
 
-  //  функция выхода из режима управления глубиной эффекта стрелками
   function stopKeyMode() {
     effectSlider.classList.remove(KEY_MODE_SLIDER_CLASS);
     checkedEffectType.addEventListener('keydown', startKeyModeHandler);
