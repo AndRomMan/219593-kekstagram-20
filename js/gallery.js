@@ -3,6 +3,8 @@
 (function () {
   var HIDE_GALLERY_SECTION = 'img-filters--inactive';
   var ACTIVE_BTN = 'img-filters__button--active';
+  var BOUNCE_PREVENTING_TIME_OUT = 500;
+
   var galleryFilterSection = document.querySelector('.img-filters');
   var galleryFilterForm = galleryFilterSection.querySelector('.img-filters__form');
   var galleryDefaultFilterBtn = galleryFilterSection.querySelector('.filter-default');
@@ -24,7 +26,9 @@
       if (evt.which !== 1) {
         return;
       }
+
       clearGallery();
+
       var target = evt.target;
       if (target.contains(galleryDefaultFilterBtn)) {
         addActiveBtnIndicator(galleryDefaultFilterBtn);
@@ -79,9 +83,11 @@
 
     function clearGallery() {
       var galleryImgs = document.querySelectorAll('.' + window.bigPicture.LINK_CLASS);
-      galleryImgs.forEach(function (galleryImg) {
-        galleryImg.remove();
-      });
+      setTimeout(function () {
+        galleryImgs.forEach(function (galleryImg) {
+          galleryImg.remove();
+        });
+      }, BOUNCE_PREVENTING_TIME_OUT);
     }
 
     openFilterSection(filteredPhotoCollection);
