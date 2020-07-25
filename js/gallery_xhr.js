@@ -3,7 +3,7 @@
 (function () {
   var URL = 'https://javascript.pages.academy/kekstagram/data';
   var TIMEOUT_MS = 5000;
-  var STATUS_CODE = {
+  var StatusCode = {
     OK: 200
   };
 
@@ -13,8 +13,8 @@
     xhr.timeout = TIMEOUT_MS;
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === STATUS_CODE.OK) {
-        window.gallery.getGallery(xhr.response);
+      if (xhr.status === StatusCode.OK) {
+        window.gallery.renderGallery(xhr.response);
       }
     });
     xhr.open('GET', URL);

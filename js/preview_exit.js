@@ -1,27 +1,36 @@
 'use strict';
 
 (function () {
-  function previewEditorCloseHandler(evt) {
-    if (((evt.type) === 'click') || ((evt.code) === 'Escape')) {
-      window.modal.modalPreviewClose();
-
-      cleanPreviewEditor();
-      cleanImgPreview();
-      cleanFormFields();
-      cleanEffectsPointerBlock();
-      cleanSlider();
-      cleanScaleBlock();
-    }
+  function previewEditorCloseKeydownHandler(evt) {
+    window.eventChecker.checkEnterKeyEvent(evt, previewEditorCleaner);
   }
 
-  function cleanPreviewEditor() {
+  function previewEditorEscapeHandler(evt) {
+    window.eventChecker.checkEscapeKeyEvent(evt, previewEditorCleaner);
+  }
+
+  function previewEditorClickHandler(evt) {
+    window.eventChecker.checkMouseEvent(evt, previewEditorCleaner);
+  }
+
+  function previewEditorCleaner() {
+    window.previewModal.modalPreviewClose();
+    window.formEscapePreventing.dismissPreventingEcapeOnInput();
+    hidePreviewEditorElements();
+    cleanImgPreview();
+    cleanPreviewEditorForm();
+    cleanEffectsPointerBlock();
+    cleanSlider();
+    cleanScaleBlock();
+  }
+
+  function hidePreviewEditorElements() {
     window.preview.previewEditor.classList.add('hidden');
     window.preview.effectSlider.classList.add('hidden');
-    window.formEscapePreventing.dismissPreventingEcapeOnInput();
   }
 
   function cleanImgPreview() {
-    var imgPreview = window.preview.previewEditor.querySelector('.img-upload__preview img');
+    var imgPreview = window.preview.previewEditor.querySelector(window.preview.PREVIEW_IMG);
     imgPreview.removeAttribute('style');
     imgPreview.removeAttribute('class');
     var checkedEffectType = window.previewEffect.checkedEffectType;
@@ -31,17 +40,17 @@
     checkedEffectType.checked = false;
   }
 
-  function cleanFormFields() {
+  function cleanPreviewEditorForm() {
     window.preview.uploadFileBtn.value = '';
     var hashTagInput = window.preview.hashTagInput;
     var textAreaField = window.preview.textAreaField;
     hashTagInput.removeAttribute('value');
     textAreaField.removeAttribute('value');
-    hashTagInput.removeEventListener('change', window.previewForm.hashTagChangeHandler);
-    textAreaField.removeEventListener('input', window.previewForm.textAreaChangeHandler);
-    window.previewForm.hashTagAlarmOff();
-    window.previewForm.textAreaAlarmOff();
-    window.previewForm.textAreaWarningOff();
+    hashTagInput.removeEventListener('change', window.previewFormHashtag.hashTagChangeHandler);
+    textAreaField.removeEventListener('input', window.previewFormTextarea.textareaChangeHandler);
+    window.previewFormHashtag.hashTagAlarmOff();
+    window.previewFormTextarea.textareaAlarmOff();
+    window.previewFormTextarea.textareaWarningOff();
     hashTagInput.value = '';
     textAreaField.value = '';
   }
@@ -69,6 +78,11 @@
   }
 
   window.previewExit = {
-    previewEditorCloseHandler: previewEditorCloseHandler,
+    previewEditorEscapeHandler: previewEditorEscapeHandler,
+    previewEditorClickHandler: previewEditorClickHandler,
+    previewEditorCloseKeydownHandler: previewEditorCloseKeydownHandler,
+
+    previewEditorCleaner: previewEditorCleaner,
+
   };
 })();

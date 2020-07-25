@@ -46,21 +46,20 @@
   }
 
   function startKeyModeHandler(evt) {
-    if ((evt.code === 'Enter') || (evt.code === 'Space')) {
+    window.eventChecker.checkEnterKeyEvent(evt, function () {
       evt.preventDefault();
       effectSlider.classList.add(KEY_MODE_SLIDER_CLASS);
       checkedEffectType.removeEventListener('keydown', startKeyModeHandler);
+      checkedEffectType.addEventListener('keydown', stopModeKeyHandler);
       checkedEffectType.addEventListener('keydown', arrowKeyHandler);
-      document.addEventListener('click', clickArrowModeExitHandler);
-    } else {
-      return;
-    }
+    });
   }
 
-  function clickArrowModeExitHandler(evt) {
-    if (evt.type) {
+  function stopModeKeyHandler(evt) {
+    window.eventChecker.checkEnterKeyEvent(evt, function () {
+      evt.preventDefault();
       stopKeyMode();
-    }
+    });
   }
 
   function arrowKeyHandler(evt) {
@@ -73,21 +72,16 @@
         step = 1;
       }
       window.effectSlider.stepToPixelConverter(step);
-
-    } else if ((evt.code === 'Enter') || (evt.code === 'Space')) {
-      evt.preventDefault();
-      stopKeyMode();
-    } else {
-      evt.preventDefault();
     }
   }
 
   function stopKeyMode() {
     effectSlider.classList.remove(KEY_MODE_SLIDER_CLASS);
     checkedEffectType.addEventListener('keydown', startKeyModeHandler);
+    checkedEffectType.removeEventListener('keydown', stopModeKeyHandler);
     checkedEffectType.removeEventListener('keydown', arrowKeyHandler);
     checkedEffectType.focus();
-    document.removeEventListener('click', clickArrowModeExitHandler);
+    document.removeEventListener('click', stopModeKeyHandler);
   }
 
   window.previewEffect = {

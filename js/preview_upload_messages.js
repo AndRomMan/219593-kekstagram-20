@@ -16,7 +16,6 @@
   var uploadProgressTemplate = document.querySelector('#' + MESSAGES_TEMPLATE);
   var uploadErrorTemplate = document.querySelector('#' + ERROR_TEMPLATE);
 
-
   function removeContentBlock(removedElementClass) {
     var removedElement = document.querySelector('.' + removedElementClass);
     if (removedElement) {
@@ -26,36 +25,29 @@
   }
 
   function setEscapeHandlers() {
-    document.removeEventListener('keydown', window.previewExit.previewEditorCloseHandler);
+    document.removeEventListener('keydown', window.previewExit.previewEditorEscapeHandler);
     document.addEventListener('click', documentClickHandler);
     document.addEventListener('keydown', documentEscapeKeyHandler);
   }
 
   function removeEscapeHandlers() {
-    document.addEventListener('keydown', window.previewExit.previewEditorCloseHandler);
+    document.addEventListener('keydown', window.previewExit.previewEditorEscapeHandler);
     document.removeEventListener('click', documentClickHandler);
     document.removeEventListener('keydown', documentEscapeKeyHandler);
   }
 
   function documentEscapeKeyHandler(evt) {
-    evt.preventDefault();
-    if (evt.code === 'Escape') {
+    window.eventChecker.checkEscapeKeyEvent(evt, function () {
       removeContentBlock(MESSAGE_SECTION);
-    } else {
-      return;
-    }
+    });
   }
 
   function documentClickHandler(evt) {
-    if (evt.which !== 1) {
-      return;
-    }
-    var clickTarget = evt.target;
-    if ((clickTarget.classList.contains(MESSAGE_SECTION)) || (clickTarget.classList.contains(MESSAGE_BTN))) {
-      removeContentBlock(MESSAGE_SECTION);
-    } else {
-      return;
-    }
+    window.eventChecker.checkMouseEvent(evt, function () {
+      if ((evt.target.classList.contains(MESSAGE_SECTION)) || (evt.target.classList.contains(MESSAGE_BTN))) {
+        removeContentBlock(MESSAGE_SECTION);
+      }
+    });
   }
 
   function getMessage(sectionClass, fragment) {
@@ -74,6 +66,7 @@
     setTimeout(function () {
       getMessage(MESSAGE_SECTION, successFragment);
     }, LOADING_INDICATOR_TIME);
+    window.previewExit.previewEditorCleaner();
   }
 
   function uploadErrorMessageHandler() {

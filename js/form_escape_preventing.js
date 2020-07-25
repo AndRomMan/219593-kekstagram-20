@@ -3,7 +3,6 @@
 (function () {
   var hashTagInput = window.preview.hashTagInput;
   var textAreaField = window.preview.textAreaField;
-  var previewEditorCloseHandler = window.previewExit.previewEditorCloseHandler;
 
   function preventingEcapeOnInput() {
     hashTagInput.addEventListener('focus', focusInputHandler);
@@ -20,11 +19,11 @@
   }
 
   function focusInputHandler() {
-    document.removeEventListener('keydown', previewEditorCloseHandler);
+    document.removeEventListener('keydown', window.previewExit.previewEditorEscapeHandler);
   }
 
   function blurInputHandler() {
-    document.addEventListener('keydown', previewEditorCloseHandler);
+    document.addEventListener('keydown', window.previewExit.previewEditorEscapeHandler);
   }
 
   window.formEscapePreventing = {

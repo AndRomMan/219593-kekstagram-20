@@ -6,17 +6,11 @@
   var bigPictureCommentSendBtn = bigPictureCommentSend.querySelector('.social__footer-btn');
 
   function sendCommentBtnClickHandler(evt) {
-    if (evt.which !== 1) {
-      return;
-    }
-    sendCommentText();
+    window.eventChecker.checkMouseEvent(evt, sendCommentText);
   }
 
   function sendCommentBtnKeydownHandler(evt) {
-    if ((evt.code === 'Enter') || (evt.code === 'Space')) {
-      evt.preventDefault();
-      sendCommentText();
-    }
+    window.eventChecker.checkEnterKeyEvent(evt, sendCommentText);
   }
 
   function sendCommentText() {
@@ -31,5 +25,6 @@
     sendCommentBtnClickHandler: sendCommentBtnClickHandler,
     sendCommentBtnKeydownHandler: sendCommentBtnKeydownHandler,
     bigPictureCommentSendBtn: bigPictureCommentSendBtn,
+    bigPictureCommentSendText: bigPictureCommentSendText,
   };
 })();

@@ -13,7 +13,7 @@
 
   function setEffectSlider(effectSliderVisibility, effectTypeNum) {
     filterTypeNum = effectTypeNum;
-    var imgPreview = window.preview.previewEditor.querySelector('.img-upload__preview img');
+    var imgPreview = window.preview.previewEditor.querySelector(window.preview.PREVIEW_IMG);
     imgPreview.removeAttribute('style');
     imgPreview.removeAttribute('class');
 
@@ -30,7 +30,7 @@
     }
 
     var setEffectClass = window.effectParameters.effects[filterTypeNum].class;
-    window.preview.previewEditor.querySelector('.img-upload__preview img').classList.add(setEffectClass);
+    window.preview.previewEditor.querySelector(window.preview.PREVIEW_IMG).classList.add(setEffectClass);
 
     var effectSliderLine = window.preview.effectSliderLine;
     sliderLineParameters(window.preview.effectSliderLine);
@@ -85,7 +85,7 @@
     var setEffectFilter = window.effectParameters.effects[filterTypeNum].filter;
     var effectValueUnit = window.effectParameters.effects[filterTypeNum].unit;
     var styleString = 'filter: ' + setEffectFilter + '(' + String(value) + effectValueUnit + '); ';
-    var imgPreview = window.preview.previewEditor.querySelector('.img-upload__preview img');
+    var imgPreview = window.preview.previewEditor.querySelector(window.preview.PREVIEW_IMG);
     imgPreview.setAttribute('data-filter', styleString);
     imgPreview.setAttribute('style', styleString + imgPreview.getAttribute('data-transform'));
   }

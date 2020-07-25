@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var PREVIEW_IMG = '.img-upload__preview img';
+
   var imgUploadSection = document.querySelector('.img-upload');
   var imgUploadForm = imgUploadSection.querySelector('.img-upload__form');
   var hashTagInput = imgUploadForm.querySelector('.text__hashtags');
@@ -22,6 +24,8 @@
   var imgScaleBigger = imgScaleBlock.querySelector('.scale__control--bigger');
 
   window.preview = {
+    PREVIEW_IMG: PREVIEW_IMG,
+
     hashTagInput: hashTagInput,
     textAreaField: textAreaField,
     submitBtn: submitBtn,
