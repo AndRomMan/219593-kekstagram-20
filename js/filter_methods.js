@@ -52,38 +52,17 @@
       var checkArray = indexRandomArray.indexOf(newArrayElem, 0);
       if (checkArray === -1) {
         indexRandomArray.push(newArrayElem);
+        randomArray.push(inputArray[newArrayElem]);
       }
     }
-
-    indexRandomArray.forEach(function (elem) {
-      randomArray.push(inputArray[elem]);
-    });
     return randomArray;
   }
 
   function getDescendedArray(inputArray) {
-    var commentsNumberArray = [];
-    var rangedArray = [];
-    var rangedCommentsNumberArray;
-
-    inputArray.forEach(function (inputArrayElement) {
-      commentsNumberArray.push(inputArrayElement.comments.length);
+    var rangedArray = inputArray.slice().sort(function (a, b) {
+      return b.comments.length - a.comments.length;
     });
 
-    rangedCommentsNumberArray = commentsNumberArray.sort(function (a, b) {
-      return (b - a);
-    });
-
-    rangedCommentsNumberArray.forEach(function (commentNum) {
-      inputArray.forEach(function (inputElem) {
-        if (inputElem.comments.length === commentNum) {
-          var checkArray = rangedArray.indexOf(inputElem, 0);
-          if (checkArray === -1) {
-            rangedArray.push(inputElem);
-          }
-        }
-      });
-    });
     return rangedArray;
   }
 

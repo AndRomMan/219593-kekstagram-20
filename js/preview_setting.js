@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var PHOTO_DIRECTORY_PATH = 'photos';
   var DEFAULT_FILTER = 'input[type="radio"][value="none"]';
 
   var previewTemplate = document.querySelector('#img-preview');
@@ -14,19 +13,29 @@
     window.previewTabindex.setPreviewEditorTabindex();
 
     var imgPreview = window.preview.previewEditor.querySelector(window.preview.PREVIEW_IMG);
-    setNewImgPreview(imgPreview, imgFile.name);
+    setNewImgPreview(imgPreview, imgFile);
 
     window.previewModal.modalPreviewOpen();
     effectsPointerBlock.addEventListener('click', window.previewEffect.imgEffectClickHandler);
     window.previewScale.setImgScale('reset');
   }
 
-  function setNewImgPreview(oldImg, newFileName) {
+  function setNewImgPreview(oldImg, file) {
     var imgTemplate = previewTemplate.content.querySelector('img');
     var imgFragment = document.createDocumentFragment();
     var newImg = imgTemplate.cloneNode(true);
-    var newImgFileName = PHOTO_DIRECTORY_PATH + '/' + newFileName;
-    newImg.setAttribute('src', newImgFileName);
+
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      newImg.setAttribute('src', reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      newImg.setAttribute('src', '');
+    }
+
     imgFragment.append(newImg);
     oldImg.replaceWith(imgFragment);
   }

@@ -82,6 +82,7 @@
 
   function commentsLoaderKeydownHandler(evt) {
     window.eventChecker.checkEnterKeyEvent(evt, function () {
+      evt.preventDefault();
       commentListChildrenRemove();
       loadComments();
     });

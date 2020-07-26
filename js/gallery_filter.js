@@ -1,5 +1,5 @@
 'use strict';
-
+// window.galleryUtilities.debounce
 (function () {
   var HIDE_GALLERY_SECTION = 'img-filters--inactive';
   var ACTIVE_BTN = 'img-filters__button--active';
@@ -18,8 +18,9 @@
     defaultPhotoCollection = loadedPhotoCollection;
 
     galleryFilterSection.classList.remove(HIDE_GALLERY_SECTION);
-    galleryFilterForm.addEventListener('click', galleryFilterSectionClickHandler);
-    galleryFilterForm.addEventListener('keydown', galleryFilterSectionKeydownHandler);
+
+    galleryFilterForm.addEventListener('click', window.galleryUtilities.debounce(galleryFilterSectionClickHandler));
+    galleryFilterForm.addEventListener('keydown', window.galleryUtilities.debounce(galleryFilterSectionKeydownHandler));
 
     window.galleryFilter.setFilterSection = {
       defaultPhotoCollection: defaultPhotoCollection,
