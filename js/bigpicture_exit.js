@@ -8,19 +8,36 @@
   var sendCommentBtnKeydownHandler = window.bigPictureCommentSender.sendCommentBtnKeydownHandler;
   var bigPictureCommentSendBtn = window.bigPictureCommentSender.bigPictureCommentSendBtn;
 
-  function bigPictureCloseHandler(evt) {
-    if (((evt.type) === 'click') || ((evt.code) === 'Escape')) {
-      window.modal.modalBigPictureClose();
-      window.bigPicture.bigPictureSection.classList.add('hidden');
-      bigPictureCommentsLoader.removeEventListener('click', commentsLoaderClickHandler);
-      bigPictureCommentsLoader.removeEventListener('keydown', commentsLoaderKeydownHandler);
-      bigPictureCommentSendBtn.removeEventListener('click', sendCommentBtnClickHandler);
-      bigPictureCommentSendBtn.removeEventListener('keydown', sendCommentBtnKeydownHandler);
-      window.bigPictureComments.commentListChildrenRemove();
-    }
+  function bigPictureCloseClickHandler(evt) {
+    window.eventChecker.checkMouseEvent(evt, cleanBigPicture);
+  }
+
+  function bigPictureEscapeHandler(evt) {
+    window.eventChecker.checkEscapeKeyEvent(evt, cleanBigPicture);
+  }
+
+  function bigPictureCloseKeydownHandler(evt) {
+    window.eventChecker.checkEnterKeyEvent(evt, cleanBigPicture);
+  }
+
+
+  function cleanBigPicture() {
+    window.bogPictureModal.modalBigPictureClose();
+    window.bigPictureComments.commentListChildrenRemove();
+    window.bigPicture.bigPictureSection.classList.add('hidden');
+
+    bigPictureCommentsLoader.removeEventListener('click', commentsLoaderClickHandler);
+    bigPictureCommentsLoader.removeEventListener('keydown', commentsLoaderKeydownHandler);
+
+    bigPictureCommentSendBtn.removeEventListener('click', sendCommentBtnClickHandler);
+    bigPictureCommentSendBtn.removeEventListener('keydown', sendCommentBtnKeydownHandler);
+
+    window.bigPictureCommentSender.bigPictureCommentSendText.value = '';
   }
 
   window.bigPictureExit = {
-    bigPictureCloseHandler: bigPictureCloseHandler,
+    bigPictureCloseClickHandler: bigPictureCloseClickHandler,
+    bigPictureEscapeHandler: bigPictureEscapeHandler,
+    bigPictureCloseKeydownHandler: bigPictureCloseKeydownHandler,
   };
 })();

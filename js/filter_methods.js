@@ -2,7 +2,45 @@
 
 (function () {
   var RANDOM_PHOTO_COLLECTION_SIZE = 10;
-  var SORTING_TYPE = 'DESCENDING';
+
+  var FilterType = {
+    DEFAULT: 'default',
+    RANDOM: 'random',
+    DESCEND: 'descending',
+    ASCEND: 'ascending',
+  };
+
+  var descendingRangedPhotoCollection = [];
+
+  function getFilteredArray(loadedPhotoCollection, filterType) {
+    var defaultPhotoCollection = loadedPhotoCollection;
+    var currentPhotoCollection = [];
+
+    switch (filterType) {
+      case FilterType.DEFAULT:
+        currentPhotoCollection = defaultPhotoCollection;
+        break;
+
+      case FilterType.RANDOM:
+        currentPhotoCollection = getRandomArray(defaultPhotoCollection);
+        break;
+
+      case FilterType.DESCEND:
+        descendingRangedPhotoCollection = checkEmptyArray(descendingRangedPhotoCollection, defaultPhotoCollection, getDescendedArray);
+        currentPhotoCollection = descendingRangedPhotoCollection;
+        break;
+    }
+    return currentPhotoCollection;
+  }
+
+  function checkEmptyArray(array, defaultArray, getArray) {
+    if (array.length !== 0) {
+      return array;
+    } else {
+      array = getArray(defaultArray);
+      return array;
+    }
+  }
 
   function getRandomArray(inputArray) {
     var indexRandomArray = [];
@@ -23,7 +61,7 @@
     return randomArray;
   }
 
-  function getRangedArray(inputArray, sortingType) {
+  function getDescendedArray(inputArray) {
     var commentsNumberArray = [];
     var rangedArray = [];
     var rangedCommentsNumberArray;
@@ -32,18 +70,9 @@
       commentsNumberArray.push(inputArrayElement.comments.length);
     });
 
-    switch (sortingType) {
-      case ('DESCENDING'):
-        rangedCommentsNumberArray = commentsNumberArray.sort(function (a, b) {
-          return (b - a);
-        });
-        break;
-      case ('ASCENDING'):
-        rangedCommentsNumberArray = commentsNumberArray.sort(function (a, b) {
-          return (a - b);
-        });
-        break;
-    }
+    rangedCommentsNumberArray = commentsNumberArray.sort(function (a, b) {
+      return (b - a);
+    });
 
     rangedCommentsNumberArray.forEach(function (commentNum) {
       inputArray.forEach(function (inputElem) {
@@ -64,9 +93,9 @@
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  window.filterContent = {
-    getRandomArray: getRandomArray,
-    getRangedArray: getRangedArray,
-    SORTING_TYPE: SORTING_TYPE,
+  window.filterMethods = {
+    getFilteredArray: getFilteredArray,
+    FilterType: FilterType
   };
+
 })();

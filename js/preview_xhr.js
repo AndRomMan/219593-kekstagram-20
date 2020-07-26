@@ -10,6 +10,15 @@
     xhr.addEventListener('timeout', timeoutHandler);
   }
 
+  function sendPreviewData(outputObject) {
+    var xhr = new XMLHttpRequest();
+    xhr.timeout = TIMEOUT_MS;
+    addListeners(xhr);
+    xhr.upload.addEventListener('progress', uploadProgressHandler);
+    xhr.open('POST', URL);
+    xhr.send(outputObject);
+  }
+
   function loadHandler() {
     window.previewUploadMessages.uploadSuccessMessageHandler();
   }
@@ -24,15 +33,6 @@
 
   function uploadProgressHandler() {
     window.previewUploadMessages.uploadProgressMessageHandler();
-  }
-
-  function sendPreviewData(outputObject) {
-    var xhr = new XMLHttpRequest();
-    xhr.timeout = TIMEOUT_MS;
-    addListeners(xhr);
-    xhr.upload.addEventListener('progress', uploadProgressHandler);
-    xhr.open('POST', URL);
-    xhr.send(outputObject);
   }
 
   window.previewXHR = {
