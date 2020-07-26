@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var BOUNCE_PREVENTING_TIME_OUT = 500;
-
   var userGallery = document.querySelector('.pictures');
 
   function renderGallery(loadedPhotoCollection) {
@@ -11,7 +9,12 @@
 
     renderFilteredCollection(window.galleryFilter.userPictureTemplate, photos);
 
-    function getUserPictureFragment(template, imgCollection) {
+    window.gallery.renderGallery = {
+      renderFilteredCollection: renderFilteredCollection,
+    };
+  }
+
+      function getUserPictureFragment(template, imgCollection) {
       var userPicturesFragment = document.createDocumentFragment();
       imgCollection.forEach(function (loadedImgObj) {
         var templateClone = template.cloneNode(true);
@@ -41,17 +44,10 @@
 
     function clearGallery() {
       var galleryImgs = document.querySelectorAll('.' + window.bigPicture.LINK_CLASS);
-      setTimeout(function () {
-        galleryImgs.forEach(function (galleryImg) {
-          galleryImg.remove();
-        });
-      }, BOUNCE_PREVENTING_TIME_OUT);
+      galleryImgs.forEach(function (galleryImg) {
+        galleryImg.remove();
+      });
     }
-
-    window.gallery.renderGallery = {
-      renderFilteredCollection: renderFilteredCollection,
-    };
-  }
 
   window.gallery = {
     renderGallery: renderGallery,
