@@ -13,7 +13,6 @@
 
   function submitBtnKeydownHandler(evt) {
     window.eventChecker.checkEnterKeyEvent(evt, function () {
-      evt.preventDefault();
       sendFormData();
     });
   }

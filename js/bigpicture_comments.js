@@ -24,12 +24,16 @@
     blockSize = 0;
     commentsTotalNum = comments.length;
     bigPictureCommentTotalCounter.textContent = comments.length;
-
+    commentsRender();
     bigPictureCommentSendAuthor.setAttribute('src', window.bigPicture.AVATAR_SRC);
     bigPictureCommentSendAuthor.setAttribute('alt', window.bigPicture.USER_NAME);
-    loadComments();
     bigPictureCommentsLoader.addEventListener('click', commentsLoaderClickHandler);
     bigPictureCommentsLoader.addEventListener('keydown', commentsLoaderKeydownHandler);
+  }
+
+  function commentsRender() {
+    commentListChildrenRemove();
+    loadComments();
   }
 
   function loadComments() {
@@ -50,7 +54,6 @@
 
     bigPictureCommentCurrentCounter.textContent = (startPoint + blockSize) + ' из ';
   }
-
 
   function setNewComment(avatarSrc, avatarName, commentText) {
     var commentFragment = document.createDocumentFragment();
@@ -75,17 +78,14 @@
 
   function commentsLoaderClickHandler(evt) {
     window.eventChecker.checkMouseEvent(evt, function () {
-      commentListChildrenRemove();
-      loadComments();
+      commentsRender();
     });
   }
 
   function commentsLoaderKeydownHandler(evt) {
-    window.eventChecker.checkEnterKeyEvent(evt, function () {
-      evt.preventDefault();
-      commentListChildrenRemove();
-      loadComments();
-    });
+    if ((evt.code === 'Enter') || (evt.code === 'Space')) {
+      commentsRender();
+    }
   }
 
   window.bigPictureComments = {

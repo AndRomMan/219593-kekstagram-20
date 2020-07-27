@@ -7,59 +7,61 @@
   var checkedEffectType;
 
   function imgEffectClickHandler(evt) {
-    checkedEffectType = evt.target;
-    var effectTypeNum;
+    window.eventChecker.checkMouseEvent(evt, function() {
+      checkedEffectType = evt.target;
+      var effectTypeNum;
 
-    var checkEffectValue = checkedEffectType.getAttribute('value');
-    if (checkedEffectType.getAttribute('type') !== 'radio') {
-      return;
-    }
+      var checkEffectValue = checkedEffectType.getAttribute('value');
+      if (checkedEffectType.getAttribute('type') !== 'radio') {
+        return;
+      }
 
-    switch (checkEffectValue) {
-      case (window.effectParameters.effects[0].value):
-        effectSliderVisibility = false;
-        effectTypeNum = 0;
-        break;
-      case (window.effectParameters.effects[1].value):
-        effectSliderVisibility = true;
-        effectTypeNum = 1;
-        break;
-      case (window.effectParameters.effects[2].value):
-        effectSliderVisibility = true;
-        effectTypeNum = 2;
-        break;
-      case (window.effectParameters.effects[3].value):
-        effectSliderVisibility = true;
-        effectTypeNum = 3;
-        break;
-      case (window.effectParameters.effects[4].value):
-        effectSliderVisibility = true;
-        effectTypeNum = 4;
-        break;
-      case (window.effectParameters.effects[5].value):
-        effectSliderVisibility = true;
-        effectTypeNum = 5;
-        break;
-    }
-    checkedEffectType.addEventListener('keydown', startKeyModeHandler);
-    window.effectSlider.setEffectSlider(effectSliderVisibility, effectTypeNum);
+      switch (checkEffectValue) {
+        case (window.effectParameters.effects[0].value):
+          effectSliderVisibility = false;
+          effectTypeNum = 0;
+          break;
+        case (window.effectParameters.effects[1].value):
+          effectSliderVisibility = true;
+          effectTypeNum = 1;
+          break;
+        case (window.effectParameters.effects[2].value):
+          effectSliderVisibility = true;
+          effectTypeNum = 2;
+          break;
+        case (window.effectParameters.effects[3].value):
+          effectSliderVisibility = true;
+          effectTypeNum = 3;
+          break;
+        case (window.effectParameters.effects[4].value):
+          effectSliderVisibility = true;
+          effectTypeNum = 4;
+          break;
+        case (window.effectParameters.effects[5].value):
+          effectSliderVisibility = true;
+          effectTypeNum = 5;
+          break;
+      }
+      checkedEffectType.addEventListener('keydown', startKeyModeHandler);
+      window.effectSlider.setEffectSlider(effectSliderVisibility, effectTypeNum);
+      });
   }
 
   function startKeyModeHandler(evt) {
-    window.eventChecker.checkEnterKeyEvent(evt, function () {
+     if (evt.code === 'Enter') {
       evt.preventDefault();
-      effectSlider.classList.add(KEY_MODE_SLIDER_CLASS);
-      checkedEffectType.removeEventListener('keydown', startKeyModeHandler);
-      checkedEffectType.addEventListener('keydown', stopModeKeyHandler);
-      checkedEffectType.addEventListener('keydown', arrowKeyHandler);
-    });
+       effectSlider.classList.add(KEY_MODE_SLIDER_CLASS);
+       checkedEffectType.removeEventListener('keydown', startKeyModeHandler);
+       checkedEffectType.addEventListener('keydown', stopModeKeyHandler);
+       checkedEffectType.addEventListener('keydown', arrowKeyHandler);
+     }
   }
 
   function stopModeKeyHandler(evt) {
-    window.eventChecker.checkEnterKeyEvent(evt, function () {
+    if (evt.code === 'Enter') {
       evt.preventDefault();
       stopKeyMode();
-    });
+    }
   }
 
   function arrowKeyHandler(evt) {

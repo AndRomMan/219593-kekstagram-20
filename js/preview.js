@@ -10,7 +10,10 @@
   var submitBtn = imgUploadForm.querySelector('.img-upload__submit');
   var hashTagErrorMessageField = imgUploadForm.querySelector('.error-message--hash');
   var textAreaErrorMessage = imgUploadForm.querySelector('.error-message--description');
+
   var uploadFileBtn = imgUploadSection.querySelector('.img-upload__input');
+  var uploadFileLabel = imgUploadSection.querySelector('.img-upload__control');
+
   var previewEditor = imgUploadSection.querySelector('.img-upload__overlay');
   var previewEditorCancelBtn = previewEditor.querySelector('.img-upload__cancel');
   var effectsPointerBlock = previewEditor.querySelector('.img-upload__effects');
@@ -42,7 +45,10 @@
     effectSliderLine: effectSliderLine,
     effectSliderLineDepth: effectSliderLineDepth,
     previewEditor: previewEditor,
+
     uploadFileBtn: uploadFileBtn,
+    uploadFileLabel: uploadFileLabel,
+
     previewEditorCancelBtn: previewEditorCancelBtn,
     effectsPointerBlock: effectsPointerBlock,
 
