@@ -1,5 +1,5 @@
 'use strict';
-// window.galleryUtilities.debounce
+
 (function () {
   var HIDE_GALLERY_SECTION = 'img-filters--inactive';
   var ACTIVE_BTN = 'img-filters__button--active';

@@ -24,16 +24,11 @@
     blockSize = 0;
     commentsTotalNum = comments.length;
     bigPictureCommentTotalCounter.textContent = comments.length;
-    commentsRender();
+    loadComments();
     bigPictureCommentSendAuthor.setAttribute('src', window.bigPicture.AVATAR_SRC);
     bigPictureCommentSendAuthor.setAttribute('alt', window.bigPicture.USER_NAME);
     bigPictureCommentsLoader.addEventListener('click', commentsLoaderClickHandler);
     bigPictureCommentsLoader.addEventListener('keydown', commentsLoaderKeydownHandler);
-  }
-
-  function commentsRender() {
-    commentListChildrenRemove();
-    loadComments();
   }
 
   function loadComments() {
@@ -78,14 +73,15 @@
 
   function commentsLoaderClickHandler(evt) {
     window.eventChecker.checkMouseEvent(evt, function () {
-      commentsRender();
+      loadComments();
     });
   }
 
   function commentsLoaderKeydownHandler(evt) {
-    if ((evt.code === 'Enter') || (evt.code === 'Space')) {
-      commentsRender();
-    }
+    window.eventChecker.checkEnterKeyEvent(evt, function () {
+      window.eventChecker.preventingEnterDefault(evt);
+      loadComments();
+    });
   }
 
   window.bigPictureComments = {

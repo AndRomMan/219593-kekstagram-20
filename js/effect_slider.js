@@ -16,15 +16,14 @@
     var imgPreview = window.preview.previewEditor.querySelector(window.preview.PREVIEW_IMG);
     imgPreview.removeAttribute('style');
     imgPreview.removeAttribute('class');
+    imgPreview.setAttribute('data-filter', window.effectParameters.effects[0].value);
 
     if (effectSliderVisibility) {
       effectSlider.classList.remove('hidden');
       effectSliderPin.addEventListener('mousedown', sliderPinDragHandler);
-
     } else {
       effectSlider.classList.add('hidden');
       window.previewScale.setImgScale('reset');
-      imgPreview.setAttribute('data-filter', window.effectParameters.effects[0].value);
       effectSliderPin.removeEventListener('mousedown', sliderPinDragHandler);
       return;
     }

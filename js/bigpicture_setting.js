@@ -17,8 +17,10 @@
   function setFullscreen(evt) {
     var img;
     if (evt.target.classList.contains(window.bigPicture.PICTURE_CLASS)) {
+      window.eventChecker.preventingEnterDefault(evt);
       img = evt.target;
     } else if (evt.target.classList.contains(window.bigPicture.LINK_CLASS)) {
+      window.eventChecker.preventingEnterDefault(evt);
       img = evt.target.querySelector('img');
     } else {
       return;

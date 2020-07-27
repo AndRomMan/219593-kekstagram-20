@@ -22,9 +22,16 @@
     }
   }
 
+  function preventingEnterDefault(evt) {
+    if (evt.code === 'Enter') {
+      evt.preventDefault();
+    }
+  }
+
   window.eventChecker = {
     checkMouseEvent: checkMouseEvent,
     checkEnterKeyEvent: checkEnterKeyEvent,
     checkEscapeKeyEvent: checkEscapeKeyEvent,
+    preventingEnterDefault: preventingEnterDefault,
   };
 })();

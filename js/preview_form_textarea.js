@@ -2,6 +2,7 @@
 
 (function () {
   var MAX_COMMENT_LENGTH = 140;
+  var COMMENT_WARNING_GAP = 20;
 
   var textAreaField = window.preview.textAreaField;
   var textAreaErrorMessage = window.preview.textAreaErrorMessage;
@@ -11,11 +12,11 @@
     var textAreaValue = textAreaField.value;
     var currentCommentLength = textAreaValue.length;
 
-    if (currentCommentLength <= (MAX_COMMENT_LENGTH - 20)) {
+    if (currentCommentLength <= (MAX_COMMENT_LENGTH - COMMENT_WARNING_GAP)) {
       textareaFieldCheck = true;
       textareaAlarmOff();
       textareaWarningOff();
-    } else if ((currentCommentLength > (MAX_COMMENT_LENGTH - 20)) && (currentCommentLength <= MAX_COMMENT_LENGTH)) {
+    } else if ((currentCommentLength > (MAX_COMMENT_LENGTH - COMMENT_WARNING_GAP)) && (currentCommentLength <= MAX_COMMENT_LENGTH)) {
       textareaAlarmOff();
       textAreaWarningOn(currentCommentLength, MAX_COMMENT_LENGTH);
       textareaFieldCheck = true;
