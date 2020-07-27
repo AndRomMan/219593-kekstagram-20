@@ -7,7 +7,7 @@
   var checkedEffectType;
 
   function imgEffectClickHandler(evt) {
-    window.eventChecker.checkMouseEvent(evt, function() {
+    window.eventChecker.checkMouseEvent(evt, function () {
       checkedEffectType = evt.target;
       var effectTypeNum;
 
@@ -44,17 +44,17 @@
       }
       checkedEffectType.addEventListener('keydown', startKeyModeHandler);
       window.effectSlider.setEffectSlider(effectSliderVisibility, effectTypeNum);
-      });
+    });
   }
 
   function startKeyModeHandler(evt) {
-     if (evt.code === 'Enter') {
+    if (evt.code === 'Enter') {
       evt.preventDefault();
-       effectSlider.classList.add(KEY_MODE_SLIDER_CLASS);
-       checkedEffectType.removeEventListener('keydown', startKeyModeHandler);
-       checkedEffectType.addEventListener('keydown', stopModeKeyHandler);
-       checkedEffectType.addEventListener('keydown', arrowKeyHandler);
-     }
+      effectSlider.classList.add(KEY_MODE_SLIDER_CLASS);
+      checkedEffectType.removeEventListener('keydown', startKeyModeHandler);
+      checkedEffectType.addEventListener('keydown', stopModeKeyHandler);
+      checkedEffectType.addEventListener('keydown', arrowKeyHandler);
+    }
   }
 
   function stopModeKeyHandler(evt) {
