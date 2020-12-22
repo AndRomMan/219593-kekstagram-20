@@ -1,6 +1,6 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
-* Студент: [Роман Демин](https://up.htmlacademy.ru/javascript/20/user/219593).
+* Студент: [Роман Демин](https://htmlacademy.ru/profile/id219593).
 * Наставник: [Александр Тимоновский](https://htmlacademy.ru/profile/id768125).
 
 ---
