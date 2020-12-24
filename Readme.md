@@ -1,52 +1,42 @@
-# Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
+# Личный проект «Кекстаграм»
+
+  [Сайт в интернете](https://demindesign.ru/kekstagram/).
 
 * Студент: [Роман Демин](https://htmlacademy.ru/profile/id219593).
-* Наставник: [Александр Тимоновский](https://htmlacademy.ru/profile/id768125).
+* Наставник: [Александр Горбачев](https://htmlacademy.ru/profile/hrbchv).
 
 ---
+### Проект «Кекстаграм»
 
-_Не удаляйте и не обращайте внимание на файлы:_<br>
-_`.editorconfig`, `.eslintrc`, `.gitattributes`, `.gitignore`, `.travis.yml`, `package-lock.json`, `package.json`._
+__сервис просмотра изображений__
 
----
+#### Что сделано
+* Исходно получаем готовую верстку.
+* В процессе были внесены небольшие правки, необходимые для реализации функциональности
+    * добавление CSS классов и свойств
+    * добавление шаблонов в код HTML
 
-### Памятка
-
-#### 1. Зарегистрируйтесь на Гитхабе
-
-Если у вас ещё нет аккаунта на [github.com](https://github.com/join), скорее зарегистрируйтесь.
-
-#### 2. Создайте форк
-
-Откройте репозиторий и нажмите кнопку «Fork» в правом верхнем углу. Репозиторий из Академии будет скопирован в ваш аккаунт.
-
-<img width="769" alt="" src="https://user-images.githubusercontent.com/10909/35275222-1d624452-0050-11e8-8aca-06d2832724ce.png">
-
-Получится вот так:
-
-<img width="769" alt="" src="https://user-images.githubusercontent.com/10909/35275223-1d7cf9fa-0050-11e8-829b-98ac3c9a4f8b.png">
-
-#### 3. Клонируйте репозиторий на свой компьютер
-
-Будьте внимательны: нужно клонировать свой репозиторий (форк), а не репозиторий Академии. Также обратите внимание, что клонировать репозиторий нужно через SSH, а не через HTTPS. Нажмите зелёную кнопку в правой части экрана, чтобы скопировать SSH-адрес вашего репозитория:
-
-<img width="769" alt="" src="https://user-images.githubusercontent.com/10909/35275224-1d97a7dc-0050-11e8-89f9-41c9a7b2ae9c.png">
-
-Клонировать репозиторий можно так:
-
-```
-git clone SSH-адрес_вашего_форка
-```
-
-Команда клонирует репозиторий на ваш компьютер и подготовит всё необходимое для старта работы.
-
-#### 4. Начинайте обучение!
+* Разработан код __javascript__ добавляющий функциональность на страницу.
 
 ---
+##### Описание функциональности
 
-<a href="https://htmlacademy.ru/intensive/javascript"><img align="left" width="50" height="50" alt="HTML Academy" src="https://up.htmlacademy.ru/static/img/intensive/javascript/logo-for-github-2.png"></a>
+1. Загрузка нового изображения на сайт и заполнение информации о нём
+2. Редактирование изображения
+3. Отправка данных на сервер
+4. Просмотр загруженных изображений
+5. Фильтрация изображений от других пользователей
 
-Репозиторий создан для обучения на интенсивном онлайн‑курсе «[Профессиональный JavaScript](https://htmlacademy.ru/intensive/javascript)», уровень 1 от [HTML Academy](https://htmlacademy.ru).
+---
+##### Общие технические требования
+  * Фреймворки: не используются.
+  * Инструмент автоматизации: __Gulp__.
+  * Система управления версиями: __Git__.
 
-[travis-image]: https://travis-ci.com/htmlacademy-javascript/219593-kekstagram-20.svg?branch=master
-[travis-url]: https://travis-ci.com/htmlacademy-javascript/219593-kekstagram-20
+---
+<a href="https://htmlacademy.ru/intensive/adaptive">
+<img align="right" width="50" height="50" alt="HTML Academy" src="https://up.htmlacademy.ru/static/img/intensive/adaptive/logo-for-github-2.png">
+</a>
+
+Репозиторий создан для обучения на интенсивном онлайн‑курсе
+«[Профессиональный JavaScript](https://htmlacademy.ru/intensive/javascript)», уровень 1 от [HTML Academy](https://htmlacademy.ru).
