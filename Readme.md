@@ -1,6 +1,6 @@
 # Личный проект «Кекстаграм»
 
-  [Сайт в интернете](https://demindesign.ru/kekstagram/).
+  [Сайт в интернете](https://andromman.github.io/219593-kekstagram-20/).
 
 * Студент: [Роман Демин](https://htmlacademy.ru/profile/id219593).
 * Наставник: [Александр Горбачев](https://htmlacademy.ru/profile/hrbchv).
